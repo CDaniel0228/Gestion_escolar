@@ -1,0 +1,38 @@
+# General
+.DS_Store
+Thumbs.db
+
+# Backend (web2py)
+/backendpy/private/
+/backendpy/uploads/
+/backendpy/sessions/
+/backendpy/errors/
+/backendpy/web2py/cache/
+/backendpy/compiled/
+/backendpy/databases/
+
+# Frontend (React TypeScript)
+/frontendts/node_modules/
+/frontendts/build/
+/frontendts/dist/
+/frontendts/.vscode/
+/frontendts/.idea/
+/frontendts/.log/
+/frontendts/.tsbuildinfo
+
+# dependencies
+/frontendts/node_modules
+/frontendts/.pnp
+/frontendts.pnp.js
+
+# testing
+/frontendts/coverage
+
+# misc
+/frontendts/.DS_Store
+/frontendts/.env.local
+/frontendts/.env.development.local
+/frontendts/.env.test.local
+/frontendts/.env.production.local
+/frontendts/npm-debug.log*
+
