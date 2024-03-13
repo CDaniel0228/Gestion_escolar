@@ -3,39 +3,46 @@
 # This is a sample controller
 # this file is released under public domain and you can use without limitations
 # -------------------------------------------------------------------------
-from repository.student_repository import student_repository
-estudiantes_repository = student_repository(db)
+from repository.student_repository import StudentRepository
+from renderer.control_asistencia import ControlAsistencia
+
+estudiantes_repository = StudentRepository(db)
+renderer_asistencia = ControlAsistencia(db)
+
 
 
 # ---- example index page ----
 def index():
-    grid = SQLFORM.grid(db.salones, orderby=db.salones.nombre, create=False, editable=False, deletable=False, user_signature=False)
-    response.flash = T("Hello World")
-    grid_html = grid
-    return dict(mensaje="Hola desde MiApp")#dict(grid=grid)
+    response.flash = T("Hello World")   
+    return dict(message=T('Welcome to web2py!'))
 #dict(message=T('Welcome to web2py!'))
 
-def pg():
-    print("Hola mundo")
+#@auth.requires_login()
+def administrar():
+    tabla = request.args(0)
+    if not tabla in ['salones', 'materias']: redirect(URL('error', tabla))
+    grid = SQLFORM.grid(
+        db[tabla], args=request.args[:1],
+        fields=[db[tabla].nombre],
+        orderby=db[tabla].nombre,
+        user_signature=False,
+        csv=False
+        )
+    return dict(grid=grid)
 
-def register_student():
-    """
-    Registers a new student
-    """
-    try:
-        name = request.post_vars.name
-        lastname = request.post_vars.email
-        ege= request.post_vars.ege
-        print(name)
-        student_id = estudiante_repository.create(nombre, correo)
+def asistencia():
+    options = ['Ausente','Asistio'] 
+    grid = renderer_asistencia.seguimiento_asistencia(options)
+    return dict(grid=grid)
 
-        response.status = 200
-        response.body = json.dumps({'id': student_id})
-    except Exception as e:
-        response.status = 500
-        response.body = json.dumps({'error': str(e)})
+def accion():
+    if request.method == 'POST':
+        # Obtenemos los datos del cuerpo de la solicitud
+        estado = request.vars.get('estado')
+        row_id = request.vars.get('rowId')
+        db(db.asistencias.id == row_id).update(asistio=(estado=='Asistio'))
 
-    return response    
+     
 
 def register():
     response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'  # Reemplaza con la URL de tu frontend
@@ -46,10 +53,6 @@ def register():
     age = request.post_vars.age
     gender = request.post_vars.gender
     estudiante_id = estudiantes_repository.create(id, name, age, gender)
-    #print(estudiante_id)
-
-    # Lógica para registrar al estudiante y otras operaciones en el backend
-
     return response.json({'message': 'Estudiante registrado exitosamente'})
 
 

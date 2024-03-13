@@ -14,13 +14,16 @@ db.define_table('materias',
   Field('id_materia', type="id", primary_key=True, autoincrement=True),
   Field('nombre', 'string', length=30, notnull=True)
 )
+#requires=IS_NOT_EMPTY()
 
 db.define_table(
     'asistencias',
     Field('id_asistencia', type="id", primary_key=True, autoincrement=True),
-    Field('id_estudiante', 'integer', db.estudiantes, notnull=True),
-    Field('id_salon', 'integer', db.salones, notnull=True),
-    Field('id_materia', 'integer', db.materias, notnull=True),
+    Field('id_estudiante', 'reference estudiantes', notnull=True),
+    Field('id_salon', 'reference salones',notnull=True),
+    Field('id_materia',  'reference materias', db.materias, notnull=True),
     Field('fecha', 'date', notnull=True),
     Field('asistio', 'boolean', notnull=True),
 )
+
+
