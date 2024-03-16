@@ -1,35 +1,25 @@
 version: '3'
 
 services:
-  backend:
-    build:
-      context: ./backendpy
-    ports:
-      - "8000:8000"
-    depends_on:
-      - postgres
-    command: sh -c "alembic upgrade head"
-    networks:
-      - net-school
-
-  frontend:
-    build:
-      context: ./frontendts
-    ports:
-      - "3000:3000"
-    networks:
-      - net-school
-
   postgres:
     image: postgres:latest
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 
-      POSTGRES_DB: prueba
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - $PWD/data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - net-school
+
+  web2py:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
     networks:
       - net-school
 
