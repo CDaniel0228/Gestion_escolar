@@ -1,6 +1,8 @@
+import { StudentModel } from "../models/StudentModel";
+
 export default  class ApiService {
   static baseURL = 'http://127.0.0.1:8000/';
-  static post(url: string, data: any): Promise<any> {
+  static post(url: string, data: StudentModel): Promise<StudentModel> {
     return fetch(`${this.baseURL}${url}`, {
       method: 'POST',
       headers: {

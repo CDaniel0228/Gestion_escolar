@@ -1,34 +1,37 @@
+"""Module that provides CRUD functions for students."""
 class StudentRepository:
     def __init__(self, db):
-        self.db = db
-        self.estudiante = db.estudiantes
+        """
+        Initialization of the class for connection
+        to the students table of the database
+        """
+        self.db = db 
+        self.estudiante = db.estudiantes 
 
-    def create(self, id, name, age, gender):
+    def create(self, id_student:int, name:str, age:int, gender:str) -> bool:
+        """Allows you to add information about new students"""
         try:
-            self.estudiante.insert(id_estudiante=id, nombre=name, edad=age, genero=gender)
+            self.estudiante.insert(
+                id_estudiante=id_student, nombre=name, edad=age, genero=gender
+            )
+            return True
         except Exception as e:
-            print(f"Error al insertar estudiante: {e}")
-        return "nodo"
+            return False
 
-    def update(self, id, name, age, gender):
+    def update(self, id_student:int, name:str, age:int, gender:str) -> bool:
+        """Allows you to update information about a student."""
         try:
-            registro = self.db(self.estudiante.id == id).select().first()
+            registro = self.db(self.estudiante.id == id_student).select().first()
             if registro:
-                registro.update_record(nombre=nombre, edad=edad)
-                return True
-            else:
-                return False
+                registro.update_record(nombre=name, edad=age, gender=gender)
+            return registro
         except Exception as e:
-            print(f"Error al insertar estudiante: {e}")
-        return "nodo"
-    
-    def obtener_registro_por_id(self, id):
-        # Obtener un registro por su ID
-        return self.db(self.estudiante.id == id).select().first()
+            return False
 
-    def obtener_todos_los_registros(self):
-        # Obtener todos los registros de la tabla
+    def get_id_studens(self, id_student: int):
+        """Get a record by your ID"""
+        return self.db(self.estudiante.id == id_student).select().first()
+
+    def get_all_students(self):
+        """Get all records"""
         return self.db(self.estudiante).select()
-            
-            
-        

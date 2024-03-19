@@ -4,65 +4,79 @@
 # this file is released under public domain and you can use without limitations
 # -------------------------------------------------------------------------
 from renderer.control_asistencia import ControlAsistencia
-renderer_asistencia = ControlAsistencia(db)
 
+renderer_asistencia = ControlAsistencia(db)
 
 
 # ---- example index page ----
 def index():
-    response.flash = T("Hello World")   
-    return dict(message=T('Welcome to web2py!'))
-#dict(message=T('Welcome to web2py!'))
+    response.flash = T("Hello World")
+    return dict(message=T("Welcome to web2py!"))
 
-#@auth.requires_login()
+
+# dict(message=T('Welcome to web2py!'))
+
+
+# @auth.requires_login()
 def administrar():
     tabla = request.args(0)
-    if not tabla in ['salones', 'materias']: redirect(URL('error', tabla))
+    if not tabla in ["salones", "materias"]:
+        redirect(URL("error", tabla))
     grid = SQLFORM.grid(
-        db[tabla], args=request.args[:1],
+        db[tabla],
+        args=request.args[:1],
         fields=[db[tabla].nombre],
         orderby=db[tabla].nombre,
         user_signature=False,
-        csv=False
-        )
+        csv=False,
+    )
     return dict(grid=grid)
 
-def asistencia():
-    options = ['Ausente','Asistio'] 
+
+def attendance():
+    options = ["Ausente", "Asistio"]
     grid = renderer_asistencia.seguimiento_asistencia(options)
     return dict(grid=grid)
 
-def formulario():
+
+def students():
     return dict()
 
-    
+
 def accion():
-    if request.method == 'POST':
+    if request.method == "POST":
         # Obtenemos los datos del cuerpo de la solicitud
-        estado = request.vars.get('estado')
-        row_id = request.vars.get('rowId')
-        db(db.asistencias.id == row_id).update(asistio=(estado=='Asistio'))
+        estado = request.vars.get("estado")
+        row_id = request.vars.get("rowId")
+        db(db.asistencias.id == row_id).update(asistio=(estado == "Asistio"))
 
 
 # ---- API (example) -----
 @auth.requires_login()
 def api_get_user_email():
-    if not request.env.request_method == 'GET': raise HTTP(403)
-    return response.json({'status':'success', 'email':auth.user.email})
+    if not request.env.request_method == "GET":
+        raise HTTP(403)
+    return response.json({"status": "success", "email": auth.user.email})
+
 
 # ---- Smart Grid (example) -----
-@auth.requires_membership('admin') # can only be accessed by members of admin groupd
+@auth.requires_membership("admin")  # can only be accessed by members of admin groupd
 def grid():
-    response.view = 'generic.html' # use a generic view
+    response.view = "generic.html"  # use a generic view
     tablename = request.args(0)
-    if not tablename in db.tables: raise HTTP(403)
-    grid = SQLFORM.smartgrid(db[tablename], args=[tablename], deletable=False, editable=False)
+    if not tablename in db.tables:
+        raise HTTP(403)
+    grid = SQLFORM.smartgrid(
+        db[tablename], args=[tablename], deletable=False, editable=False
+    )
     return dict(grid=grid)
+
 
 # ---- Embedded wiki (example) ----
 def wiki():
-    auth.wikimenu() # add the wiki to the menu
-    return auth.wiki() 
+    auth.wikimenu()  # add the wiki to the menu
+    return auth.wiki()
+
 
 # ---- Action for login/register/etc (required for auth) -----
 def user():
@@ -82,6 +96,7 @@ def user():
     also notice there is http://..../[app]/appadmin/manage/auth to allow administrator to manage users
     """
     return dict(form=auth())
+
 
 # ---- action to server uploaded static content (required) ---
 @cache.action()

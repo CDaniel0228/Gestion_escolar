@@ -10,7 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'static')
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.css', '.svg']
+    extensions: ['.tsx', '.ts', '.js', '.css']
   },
   module: {
     rules: [

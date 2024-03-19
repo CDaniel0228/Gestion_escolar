@@ -2,7 +2,7 @@ import { StudentModel } from "../models/StudentModel";
 import { StudentRepository } from "../repository/StudentRepository";
 import { useState } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// Responsible for executing the actions of the student form
 export function StudentFormController() {
   const [estudiante, setEstudiante] = useState<StudentModel>({
     id: 0,
@@ -19,15 +19,13 @@ export function StudentFormController() {
   const handleSubmit = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     const response = await StudentRepository.registerStudent(estudiante);
-    alert(`Respuesta del servidor: ${JSON.stringify(response)}`)
+    alert(`Server response: ${JSON.stringify(response.message)}`)
     setEstudiante({
       id: 0,
       name: '',
       age: 0,
       gender:''
-    });
-    
-    console.log("d");
+    });    
   };
 
   return { estudiante, handleChange, handleSubmit };

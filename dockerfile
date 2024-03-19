@@ -16,5 +16,6 @@ COPY . .
 #service port
 EXPOSE 8000
 
+
 #start application
-CMD ["python", "web2py.py", "-a", "'<recycle>'", "-i", "0.0.0.0", "-p", "8000"]
+CMD ["sh","start.sh"]

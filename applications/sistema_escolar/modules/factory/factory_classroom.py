@@ -1,7 +1,9 @@
-from abc import ABC 
+from abc import ABC
 from models.classrooms_model import Classroom
+
+
 class FactoryClassroom(ABC):
-    _instance: 'FactoryClassroom' = None
+    _instance: "FactoryClassroom" = None
     _cache: dict = {}
 
     @classmethod

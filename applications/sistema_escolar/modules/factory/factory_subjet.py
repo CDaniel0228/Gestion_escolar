@@ -1,7 +1,9 @@
-from abc import ABC 
-from models.subjets_model import Subjet
+from abc import ABC
+from models.subjets_model import SubjetModel
+
+
 class FactoryMateria(ABC):
-    _instance: 'FactorySubjet' = None
+    _instance: "FactorySubjet" = None
     _cache: dict = {}
 
     @classmethod
@@ -10,7 +12,7 @@ class FactoryMateria(ABC):
             cls._instance = cls()
         return cls._instance
 
-    def crear_materia(self, nombre: str) -> Subjet:
+    def crear_materia(self, nombre: str) -> SubjetModel:
         if id not in self._cache:
-            self._cache[id] = Subjet(nombre)
+            self._cache[id] = SubjetModel(nombre)
         return self._cache[id]

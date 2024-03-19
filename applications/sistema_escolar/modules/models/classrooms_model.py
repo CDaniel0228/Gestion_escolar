@@ -1,3 +1,3 @@
-class Classroom:
-    def __init__(self, nombre: str):
-        self.nombre = nombre
+class ClassroomModel:
+    def __init__(self, name: str):
+        self.name = name

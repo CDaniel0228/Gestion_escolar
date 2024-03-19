@@ -23,15 +23,15 @@
 from gluon.fileutils import abspath
 from gluon.languages import read_possible_languages
 
-possible_languages = read_possible_languages(abspath('applications', app))
+possible_languages = read_possible_languages(abspath("applications", app))
 # ----------------------------------------------------------------------------------------------------------------------
 # NOTE! app - is an application based router's parameter with name of an application. E.g.'welcome'
 # ----------------------------------------------------------------------------------------------------------------------
 
 routers = {
     app: dict(
-        default_language=possible_languages['default'][0],
-        languages=[lang for lang in possible_languages if lang != 'default']
+        default_language=possible_languages["default"][0],
+        languages=[lang for lang in possible_languages if lang != "default"],
     ),
 }
 

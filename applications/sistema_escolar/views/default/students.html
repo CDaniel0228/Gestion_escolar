@@ -1,4 +1,4 @@
-{{extend 'layout.html'}}
+{{include 'navbar.html'}}
 <div id="root">
     You can put loading ui here...
     {{#    This div will be replaced by the react App loaded by the designated bundle.js }}
@@ -8,6 +8,4 @@
 
 <script defer="defer"   src="{{=URL('static', 'bundle.js')}}"></script>
 
-
 <!-- Aquí se mostrará el formulario generado -->
-

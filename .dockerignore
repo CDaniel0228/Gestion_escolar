@@ -1,0 +1,9 @@
+#React Ts
+/applications/sistema_escolar/node_modules/
+/applications/sistema_escolar/build/
+/applications/sistema_escolar/.vscode/
+/applications/sistema_escolar/.idea/
+/applications/sistema_escolar/.log/
+/applications/sistema_escolar/.tsbuildinfo
+/applications/sistema_escolar/npm-debug.log*
+/applications/sistema_escolar/.DS_Store
